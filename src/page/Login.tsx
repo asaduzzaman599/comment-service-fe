@@ -1,6 +1,8 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import api from "../lib/axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../store/auth-slice";
 
 type LoginForm = {
   email: string;
@@ -9,11 +11,15 @@ type LoginForm = {
 
 export default function Login() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginForm>();
+  const dispatch = useDispatch();
+        const navigate = useNavigate()
 
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     try {
-      await api.post("/auth/signin", data); // Replace with your backend login endpoint
-      alert("Login successful!");
+     const res = await api.post("/auth/signin", data); // Replace with your backend login endpoint
+     dispatch(loginSuccess(res.data.data));
+     navigate('/comments')
+     alert("Login successful!");
     } catch (err) {
       console.error(err);
       alert("Invalid credentials!");

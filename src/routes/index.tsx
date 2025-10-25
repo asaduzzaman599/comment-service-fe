@@ -2,13 +2,15 @@ import{ Route, Routes } from 'react-router-dom'
 import App from '../page/App'
 import Signup from '../page/signup'
 import Login from '../page/login'
+import PrivateRoute from '../components/PrivateRoute'
+import CommentSection from '../page/Comment'
 
 export default function PageRouter(){
     return(
      <Routes>
              <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/comments" element={<Login />} />
+        <Route path="/comments" element={<PrivateRoute><CommentSection/></PrivateRoute>} />
            </Routes>
     )
 }
