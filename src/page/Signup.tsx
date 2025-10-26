@@ -2,6 +2,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import api from "../lib/axios";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
 
 type LoginForm = {
   email: string;
@@ -10,15 +11,17 @@ type LoginForm = {
 };
 
 export default function Signup() {
+  const navigate = useNavigate()
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginForm>();
 
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     try {
       await api.post("/auth/signup", data); // Replace with your backend login endpoint
       toast("Sign up successful!");
+      navigate('/login')
     } catch (err) {
       console.error(err);
-      toast("Invalid credentials!");
+      toast(err.message);
     }
   };
 

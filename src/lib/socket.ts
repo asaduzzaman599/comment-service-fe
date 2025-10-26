@@ -13,3 +13,6 @@ export const connectSocket = (): Socket => {
   }
   return socket;
 };
+export const getSocket = () =>{
+  return socket
+}

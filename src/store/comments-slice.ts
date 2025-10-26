@@ -35,6 +35,16 @@ export const fetchComments = createAsyncThunk(
   }
 );
 
+// export const fetchComments = createAsyncThunk(
+//   'comments/fetchComments',
+//   async ({limit, page}: FetchCommentsArgs) => {  
+//     let uri = `/comments`
+//     if(limit && page) uri = uri +`?page=${page}&limit=${limit}`
+//     const res = await api.get(uri);
+//   return res.data.data;
+//   }
+// );
+
 
 const commentSlice = createSlice({
   name: 'comment',

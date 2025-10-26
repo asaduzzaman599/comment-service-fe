@@ -1,4 +1,4 @@
-import React, { useEffect,  } from 'react';
+import React, { useEffect, useState,  } from 'react';
 import { useSelector } from 'react-redux';
 import { type RootState } from '../store';
 import api from '../lib/axios';
@@ -8,11 +8,11 @@ import { faThumbsUp, faThumbsDown, faReply, faTrash  } from "@fortawesome/free-s
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 interface Props {
-  comment: Comment
+comment: Comment
 }
+export default function CommentReply({comment }: Props){
+        
 
-export default function CommentItem({comment}: Props) {
-  const navigate = useNavigate()
     const user = useSelector((state: RootState) => state.auth.user);
 
     function matchUser(id: string){
@@ -48,10 +48,6 @@ export default function CommentItem({comment}: Props) {
          <button className={`flex items-center  ${comment?.dislikeIds?.find(i=>matchUser(i))? 'text-red-500' : 'text-gray-500' } gap-1 hover:`}>
         <FontAwesomeIcon  onClick={()=>dislike(comment._id)} icon={faThumbsDown} />
         <span>{comment?.dislikeIds?.length ?? 0}</span>
-      </button>
-
-      <button onClick={()=>navigate(`/comments/${comment._id}`)} className="flex items-center gap-1  text-gray-500 hover:text-green-500">
-        <FontAwesomeIcon icon={faReply} />
       </button>
      {matchUser(comment.userId) && <button onClick={()=>deleteComment(comment._id)} className="flex items-center gap-1  text-gray-500 hover:text-green-500">
         <FontAwesomeIcon icon={faTrash} />

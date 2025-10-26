@@ -20,7 +20,7 @@ export default function CommentSection() {
     const comments = useSelector((state: RootState) => state.comment.comments);
 
   useEffect(() => {
-    dispatch(fetchComments({limit: 10,
+    dispatch(fetchComments({limit: 6,
         page: 1
     }));
   }, [dispatch]);
