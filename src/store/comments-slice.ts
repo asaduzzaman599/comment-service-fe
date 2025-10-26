@@ -6,7 +6,7 @@ export interface Comment {
     comment: string
     user: User
     likeIds: string[]
-    disLikeIds: string[]
+    dislikeIds: string[]
 }
 
 interface CommentState {
@@ -44,10 +44,20 @@ const commentSlice = createSlice({
       state.comments = action.payload;
     },
     addComment: (state, action: PayloadAction<Comment>) => {
+      
+      const comment = state.comments.find(i=>i._id === action.payload._id)
+      if(!comment)
       state.comments = [...state.comments, action.payload];
     },
     removeComment: (state, action: PayloadAction<string>) => {
-      state.comments = [...state.comments.filter(i=>i._id !== action.payload)];
+     state.comments = [...state.comments.filter(i=>i._id !== action.payload)];
+    },
+    addLikeAndDislike: (state, action: PayloadAction<any>) => {
+      const index = state.comments.findIndex(i=>i._id === action.payload.commentId)
+      if(index> -1){
+        state.comments[index].likeIds = action.payload.likeIds
+        state.comments[index].dislikeIds = action.payload.dislikeIds
+      }
     },
   },
    extraReducers: (builder) => {
@@ -67,5 +77,5 @@ const commentSlice = createSlice({
   },
 });
 
-export const { addAllCommentsList, addComment, removeComment } = commentSlice.actions;
+export const { addAllCommentsList, addComment, removeComment, addLikeAndDislike } = commentSlice.actions;
 export default commentSlice.reducer;

@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { type RootState } from '../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, type RootState } from '../store';
+import { fetchUser } from '../store/auth-slice';
 
 interface PrivateRouteProps {
   children: React.ReactNode;
 }
 
 const PrivateRoute = ({ children }: PrivateRouteProps) => {
-  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const dispatch = useAppDispatch()
+      const auth = useSelector((state: RootState) => state.auth);
 
-  if (!isAuthenticated) {
+  useEffect(()=>{
+    dispatch(fetchUser())
+  },[])
+  if(auth.loading) return (<div>Loading.... {auth.user?.name}</div>)
+
+  if (!auth?.user) {
     return <Navigate to="/login" replace />;
   }
 

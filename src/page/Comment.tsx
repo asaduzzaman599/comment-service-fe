@@ -5,6 +5,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import api from '../lib/axios';
 import { fetchComments } from '../store/comments-slice';
 import CommentItem from '../components/CommentItem';
+import { toast } from 'react-toastify';
 
 interface Comment {
   id: number;
@@ -28,19 +29,19 @@ export default function CommentSection() {
 
          await api.post("/comments", data); // Replace with your backend login endpoint
         reset()
-     alert("Comment successful!");
+     toast("Comment successful!");
     } catch (err) {
       console.error(err);
-      alert("Something went wrong!");
+      toast("Something went wrong!");
     }
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-8 p-4 border rounded shadow bg-white">
+    <div className="max-w-xl mx-auto mt-8 p-4 rounded shadow bg-white">
       <h2 className="text-xl font-bold mb-4">Comments</h2>
 
       {/* Comment list */}
-      <ul className="space-y-4 mb-6">
+      <ul className="space-y-4 mb-6 h-100 overflow-x-scroll">
         {comments?.map((comment) => (
           <CommentItem key={comment._id} comment={comment}/>
         ))}
@@ -57,7 +58,7 @@ export default function CommentSection() {
         />
         <button
           type="submit"
-          className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+          className="bg-green-600 text-white p-2 rounded hover:bg-blue-700"
         >
           Submit Comment
         </button>

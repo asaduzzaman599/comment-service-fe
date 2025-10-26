@@ -3,6 +3,7 @@ import api from "../lib/axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../store/auth-slice";
+import { toast } from "react-toastify";
 
 type LoginForm = {
   email: string;
@@ -19,10 +20,10 @@ export default function Login() {
      const res = await api.post("/auth/signin", data); // Replace with your backend login endpoint
      dispatch(loginSuccess(res.data.data));
      navigate('/comments')
-     alert("Login successful!");
+     toast("Login successful!");
     } catch (err) {
       console.error(err);
-      alert("Invalid credentials!");
+      toast("Invalid credentials!");
     }
   };
 

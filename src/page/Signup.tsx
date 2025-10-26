@@ -1,6 +1,7 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import api from "../lib/axios";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 type LoginForm = {
   email: string;
@@ -14,10 +15,10 @@ export default function Signup() {
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     try {
       await api.post("/auth/signup", data); // Replace with your backend login endpoint
-      alert("Login successful!");
+      toast("Sign up successful!");
     } catch (err) {
       console.error(err);
-      alert("Invalid credentials!");
+      toast("Invalid credentials!");
     }
   };
 
@@ -25,7 +26,7 @@ export default function Signup() {
     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Sign in to your account
+            Sign up to your account
           </h2>
         </div>
 
@@ -95,7 +96,7 @@ export default function Signup() {
           <p className="mt-10 text-center text-sm/6 text-gray-500">
             Already have an account?{' '}
             <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
-              Singin
+              Singup
             </Link>
           </p>
         </div>

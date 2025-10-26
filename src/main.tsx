@@ -5,6 +5,9 @@ import { BrowserRouter, Link } from 'react-router-dom'
 import PageRouter from './routes/index.tsx'
 import { Provider } from 'react-redux'
 import { store } from './store/index.ts'
+import SocketProvider from './provider/SocketProvider.tsx'
+import { ToastContainer } from 'react-toastify'
+
 
 
 createRoot(document.getElementById('root')!).render(
@@ -17,6 +20,8 @@ createRoot(document.getElementById('root')!).render(
       </nav> */}
 
       <PageRouter />
+        <ToastContainer />
+      <SocketProvider />
     </BrowserRouter>
   </Provider>
   </StrictMode>,
